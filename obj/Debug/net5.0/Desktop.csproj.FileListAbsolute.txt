@@ -1,0 +1,16 @@
+/home/marta/Desktop/test/bin/Debug/net5.0/Desktop
+/home/marta/Desktop/test/bin/Debug/net5.0/Desktop.deps.json
+/home/marta/Desktop/test/bin/Debug/net5.0/Desktop.runtimeconfig.json
+/home/marta/Desktop/test/bin/Debug/net5.0/Desktop.runtimeconfig.dev.json
+/home/marta/Desktop/test/bin/Debug/net5.0/Desktop.dll
+/home/marta/Desktop/test/bin/Debug/net5.0/ref/Desktop.dll
+/home/marta/Desktop/test/bin/Debug/net5.0/Desktop.pdb
+/home/marta/Desktop/test/obj/Debug/net5.0/Desktop.csprojAssemblyReference.cache
+/home/marta/Desktop/test/obj/Debug/net5.0/Desktop.GeneratedMSBuildEditorConfig.editorconfig
+/home/marta/Desktop/test/obj/Debug/net5.0/Desktop.AssemblyInfoInputs.cache
+/home/marta/Desktop/test/obj/Debug/net5.0/Desktop.AssemblyInfo.cs
+/home/marta/Desktop/test/obj/Debug/net5.0/Desktop.csproj.CoreCompileInputs.cache
+/home/marta/Desktop/test/obj/Debug/net5.0/Desktop.dll
+/home/marta/Desktop/test/obj/Debug/net5.0/ref/Desktop.dll
+/home/marta/Desktop/test/obj/Debug/net5.0/Desktop.pdb
+/home/marta/Desktop/test/obj/Debug/net5.0/Desktop.genruntimeconfig.cache
