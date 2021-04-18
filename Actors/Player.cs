@@ -51,13 +51,19 @@ namespace Codecool.CaptureTheFlag.Actors
         /// <returns></returns>
         public static Direction GetMoveDirection((int x, int y) playerPosition, (int x, int y) flagPosition)
         {
-            throw new NotImplementedException();
+            if (playerPosition.x < flagPosition.x)
+                return Direction.Right;
+            if (playerPosition.y < flagPosition.y)
+                return Direction.Down;
+            if (playerPosition.x > flagPosition.x)
+                return Direction.Left;
+            return Direction.Up;
         }
 
         /// <summary>
         ///     Returns this player's current score
         /// </summary>
-        public int CurrentScore => CurrentScore;
+        public int CurrentScore => 0;
 
         /// <summary>
         ///     Returns this player's team

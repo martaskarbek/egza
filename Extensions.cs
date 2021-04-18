@@ -24,7 +24,23 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static char GetChar(this Actor actor)
         {
-            throw new NotImplementedException();
+            if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Paper"))
+            {
+                return 'P';
+            }
+            if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Rock"))
+            {
+                return 'R';
+            }
+            if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Scissors"))
+            {
+                return 'S';
+            }
+            if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Flag"))
+            {
+                return 'F';
+            }
+            throw new ArgumentOutOfRangeException();
         }
 
         /// <summary>
@@ -35,7 +51,19 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static (int x, int y) ToVector(this Direction dir)
         {
-            throw new NotImplementedException();
+            switch (dir)
+            {
+                case Direction.Up:
+                    return (0, -1);
+                case Direction.Down:
+                    return (0, 1);
+                case Direction.Left:
+                    return (-1, 0);
+                case Direction.Right:
+                    return (1, 0);
+            }
+
+            throw new ArgumentOutOfRangeException();
         }
 
         /// <summary>
@@ -46,7 +74,19 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static Direction Inverted(this Direction dir)
         {
-            throw new NotImplementedException();
+            switch (dir)
+            {
+                case Direction.Up:
+                    return Direction.Down;
+                case Direction.Down:
+                    return Direction.Up;
+                case Direction.Left:
+                    return Direction.Right;
+                case Direction.Right:
+                    return Direction.Left;
+            }
+
+            throw new ArgumentOutOfRangeException();
         }
 
         /// <summary>
@@ -57,7 +97,8 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static int GetDistance((int x, int y) pos1, (int x, int y) pos2)
         {
-            throw new NotImplementedException();
+            int result = (pos1.x - pos2.x) + (pos1.y - pos2.y);
+            return result < 0 ? result * -1 : result;
         }
     }
 }

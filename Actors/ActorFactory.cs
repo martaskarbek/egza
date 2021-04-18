@@ -41,7 +41,22 @@ namespace Codecool.CaptureTheFlag.Actors
         /// <returns></returns>
         public static Actor CreatePlayer(PlayerTeam team, GameMap mapReference)
         {
-            throw new NotImplementedException();
+            Actor actor = null;
+            string name = Get(_names);
+            switch (team)
+            {
+                case PlayerTeam.Paper: 
+                    actor = new Paper(name, mapReference);
+                    break;
+                case PlayerTeam.Rock:
+                    actor = new Rock(name, mapReference);
+                    break;
+                case PlayerTeam.Scissors:
+                    actor = new Scissors(name, mapReference);
+                    break;
+            }
+
+            return actor;
         }
 
         /// <summary>
@@ -51,7 +66,7 @@ namespace Codecool.CaptureTheFlag.Actors
         /// <returns></returns>
         public static Actor CreateFlag(GameMap mapReference)
         {
-            throw new NotImplementedException();
+            return new Flag(mapReference);
         }
 
         /// <summary>
@@ -62,7 +77,24 @@ namespace Codecool.CaptureTheFlag.Actors
         /// <returns></returns>
         public static Actor CreateFromChar(char c, GameMap mapReference)
         {
-            throw new NotImplementedException();
+            Actor actor = null;
+            switch (c)
+            {
+                case 'F':
+                    actor = CreateFlag(mapReference);
+                    break;
+                case 'R':
+                    actor = CreatePlayer(PlayerTeam.Rock, mapReference);
+                    break;
+                case 'P':
+                    actor = CreatePlayer(PlayerTeam.Paper, mapReference);
+                    break;
+                case 'S':
+                    actor = CreatePlayer(PlayerTeam.Scissors, mapReference);
+                    break;
+            }
+
+            return actor;
         }
     }
 }

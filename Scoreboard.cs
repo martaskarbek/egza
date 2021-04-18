@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Codecool.CaptureTheFlag.Actors;
 
 namespace Codecool.CaptureTheFlag
@@ -16,7 +18,8 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static IEnumerable<Player> GetRankedPlayers(this IEnumerable<Player> players)
         {
-            IEnumerable<Players> result = new 
+            IEnumerable<Player> result = players.OrderByDescending(p => p.CurrentScore);
+            return result;
         }
 
         /// <summary>
@@ -27,7 +30,8 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static IEnumerable<Player> GetRankedPlayersInTeam(this IEnumerable<Player> players, PlayerTeam team)
         {
-            throw new NotImplementedException();
+            IEnumerable<Player> result = players.Where(p => p.Team == team).OrderByDescending(p => p.CurrentScore);
+            return result;
         }
 
         /// <summary>
@@ -47,7 +51,13 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static int GetDeadPlayersAmount(this IEnumerable<Player> players)
         {
-            throw new NotImplementedException();
+            int result = 0;
+            foreach (var player in players)
+            {
+                if (!player.Alive)
+                    result++;
+            }
+            return result;
         }
 
         /// <summary>
@@ -61,7 +71,33 @@ namespace Codecool.CaptureTheFlag
             // Team Paper Eve Points: 10
             // Team Scissors Abel Points: 5 DEAD
 
-            throw new NotImplementedException();
+            StringBuilder scoreboard = new StringBuilder();
+            string teamName = null;
+            string isDead = String.Empty;
+            foreach (var player in players)
+            {
+                if (player.Team == PlayerTeam.Paper)
+                {
+                    teamName = "Paper";
+                }
+                else if (player.Team == PlayerTeam.Rock)
+                {
+                    teamName = "Rock";
+                }
+                else if (player.Team == PlayerTeam.Scissors)
+                {
+                    teamName = "Scissors";
+                }
+
+                if (!player.Alive)
+                {
+                    isDead = "DEAD";
+                }
+                
+                scoreboard.Append($"Team {teamName} {player.Name} Points: {player.CurrentScore.ToString()} {isDead}");
+            }
+
+            return scoreboard.ToString();
         }
     }
 }

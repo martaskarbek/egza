@@ -10,9 +10,16 @@ Language: C#
 Time: 3 hours
 Task Description
 
-Your task is to implement a simple Capture The Flag game simulation, which also utilizes the rules of Rock Paper Scissors. There are 3 teams: Rocks, Papers and Scissors. Each team has a certain number of players that are scattered across the map (which is a rectangular grid). There are also several flags on the map.
+Your task is to implement a simple Capture The Flag game simulation, which also utilizes the rules of Rock Paper Scissors. 
+There are 3 teams: Rocks, Papers and Scissors. Each team has a certain number of players that are scattered across the map
+ (which is a rectangular grid). There are also several flags on the map.
 
-The simulation happens in cycles. During one cycle, each player makes a move depending on its team’s custom logic (ordered by their positions, starting from top left corner, going right, then down). Players can move, fight each other (but not the same team) and capture flags. When a player walks on a flag, he captures it - it gets removed from the map and the player is granted 10 points. Once all the flags have been captured, the game ends and the team with most points wins. The game can also end if all players are dead before capturing all flags.
+The simulation happens in cycles. During one cycle, each player makes a move depending on its team’s custom logic
+ (ordered by their positions, starting from top left corner, going right, then down).
+  Players can move, fight each other (but not the same team) and capture flags. 
+  When a player walks on a flag, he captures it - it gets removed from the map and the player is granted 10 points. 
+  Once all the flags have been captured, the game ends and the team with most points wins.
+   The game can also end if all players are dead before capturing all flags.
 
 The general movement pattern of all Players is the following:
 
@@ -38,7 +45,8 @@ Team Rock - represented by letter R.
 
 Flags are represented by the letter F. Empty positions are represented by ..
 
-Fight happens whenever a player attempts to walk on a position occupied by another player from another team. The rules are the following:
+Fight happens whenever a player attempts to walk on a position occupied by another player from another team. 
+The rules are the following:
 
     Rock kills Scissors
     Scissors kill Paper
@@ -46,7 +54,8 @@ Fight happens whenever a player attempts to walk on a position occupied by anoth
     After one player kills another, he takes his position
     Winning a fight grants 5 points
 
-The simulation is deterministic (meaning: there is no randomness). The unit tests are going to check the game’s behavior with a set of predefined scenarios. If these tests don’t pass, it means there are some bugs or missing features in the game’s logic.
+The simulation is deterministic (meaning: there is no randomness). The unit tests are going to check the game’s behavior
+ with a set of predefined scenarios. If these tests don’t pass, it means there are some bugs or missing features in the game’s logic.
 Key features that are going to be checked by unit test classes:
 
     TestActorFactory - actor creation, actor creation based on given character
@@ -58,9 +67,15 @@ Key features that are going to be checked by unit test classes:
 
 Hints:
 
-    For string creation tasks (like GameMap.ToString()) it is recommended to use StringBuilder class. Also, when appending a new line, use Environment.NewLine, using just \n or \r might cause the unit tests to fail
+    For string creation tasks (like GameMap.ToString()) it is recommended to use StringBuilder class. Also, 
+    when appending a new line, use Environment.NewLine, using just \n or \r might cause the unit tests to fail
     For splitting a string into lines, it is recommended to use var lines = Regex.Split(originalString, "\r\n|\r|\n");
-    All methods that are checked by unit tests and require implementation by the students, are marked with throw new NotImplementedException();
-    The game’s logic uses the standard coordinate system - (x, y). However, due to the fact how text-game simulation works and how the Console prints lines, not columns, the ActorsMatrix 2D array inside GameMap class inverts the coordinates order - (y, x). Also, the Y axis is inverted - the lower the number, the upper the position. Watch out for that.
-    Positions and vectors utilize named tuples which were introduced in C# 7. If you’re not familiar with these, there’s a good source of information: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples
+    All methods that are checked by unit tests and require implementation by the students,
+     are marked with throw new NotImplementedException();
+    The game’s logic uses the standard coordinate system - (x, y). However, due to the fact how text-game simulation 
+    works and how the Console prints lines, not columns, the ActorsMatrix 2D array inside GameMap class inverts 
+    the coordinates order - (y, x). Also, the Y axis is inverted - the lower the number, the upper the position. 
+    Watch out for that.
+    Positions and vectors utilize named tuples which were introduced in C# 7. If you’re not familiar with these, 
+    there’s a good source of information: https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples
 

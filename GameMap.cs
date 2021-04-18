@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Codecool.CaptureTheFlag.Actors;
 
 namespace Codecool.CaptureTheFlag
@@ -12,7 +13,7 @@ namespace Codecool.CaptureTheFlag
         /// <summary>
         ///     A 2D matrix of all actor references (null if the field is empty)
         /// </summary>
-        public Actor[,] ActorMatrix { get; }
+        public Actor[,] ActorMatrix { get; set; }
 
         /// <summary>
         ///     Returns a new GameMap instance, constructed from given char matrix
@@ -20,7 +21,34 @@ namespace Codecool.CaptureTheFlag
         /// <param name="charMatrix"></param>
         public GameMap(string charMatrix)
         {
-            throw new NotImplementedException();
+            string[] strings = charMatrix.Split(Environment.NewLine);
+            string[,] stringMatrix = new string[strings.Length, 1];
+            for (int i = 0; i < strings.Length; i++)
+            {
+                stringMatrix[i,0] = strings[i];
+            }
+          
+            char[,] charsMatrix = new char[strings.Length, stringMatrix[0,0].Length];
+            for(int i = 0; i < stringMatrix.Length; i++)
+            {
+                char[] chars = stringMatrix[i, 0].ToCharArray();
+                for(int j = 0; j < chars.Length; j++)
+                {
+                    charsMatrix[i, j] = chars[j];
+                }
+            }
+
+            ActorMatrix = new Actor[charsMatrix.GetLength(0), charsMatrix.GetLength(1)];
+            
+            for (int i = 0; i < charsMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < charsMatrix.GetLength(1); j++)
+                {
+                    if (charsMatrix[i, j].Equals('.'))
+                        ActorMatrix[i,j] = null;
+                    ActorMatrix[i,j] = ActorFactory.CreateFromChar(charsMatrix[i,j], this);
+                }
+            }
         }
 
         /// <summary>
@@ -39,7 +67,28 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public override string ToString()
         {
-            throw new NotImplementedException();
+            StringBuilder result = new StringBuilder();
+            StringBuilder singleResult = new StringBuilder();
+            
+            for (int i = 0; i < ActorMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < ActorMatrix.GetLength(1); j++)
+                {
+                    if (ActorMatrix[i, j] == null)
+                    {
+                        singleResult.Append('.');
+                    }
+                    else
+                    {
+                        singleResult.Append(Extensions.GetChar(GetActor((i,j))));
+                    }
+                }
+
+                result.Append(singleResult + Environment.NewLine);
+                singleResult.Clear();
+            }
+
+            return result.ToString();
         }
 
         /// <summary>
@@ -51,7 +100,12 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public Actor GetActor((int x, int y) position)
         {
-            throw new NotImplementedException();
+            //TODO check if correct dimensions
+            if (position.x > ActorMatrix.GetLength(0) - 1)
+                throw new ArgumentException();
+            if (position.y > ActorMatrix.GetLength(1) - 1)
+                throw new ArgumentException();
+            return ActorMatrix[position.x, position.y];
         }
 
         /// <summary>
@@ -73,7 +127,7 @@ namespace Codecool.CaptureTheFlag
         /// <param name="position"></param>
         public void SetPosition(Actor actor, (int x, int y) position)
         {
-            throw new NotImplementedException();
+            ActorMatrix[position.x, position.y] = actor;
         }
 
         /// <summary>
@@ -163,7 +217,7 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public bool WithinBoundaries((int x, int y) position)
         {
-            throw new NotImplementedException();
+            return position.x < ActorMatrix.GetLength(0) && position.y < ActorMatrix.GetLength(1);
         }
     }
 }

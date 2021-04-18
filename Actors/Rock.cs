@@ -11,16 +11,13 @@ namespace Codecool.CaptureTheFlag.Actors
         {
         }
 
-        public override PlayerTeam Team => throw new NotImplementedException();
+        public override PlayerTeam Team => PlayerTeam.Rock;
 
         public override void OnGameCycle()
         {
             if (!Alive)
                 return;
-
-            // Rock movement logic is fully implemented as an example
-
-            // Make next move
+            
             var myPosition = MapReference.GetPosition(this);
             var nearestFlagPosition = MapReference.GetNearestFlagPosition(this);
             var targetDirection = GetMoveDirection(myPosition, nearestFlagPosition);
