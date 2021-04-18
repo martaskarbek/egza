@@ -51,13 +51,7 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static int GetDeadPlayersAmount(this IEnumerable<Player> players)
         {
-            int result = 0;
-            foreach (var player in players)
-            {
-                if (!player.Alive)
-                    result++;
-            }
-            return result;
+            return players.Count(player => !player.Alive);
         }
 
         /// <summary>

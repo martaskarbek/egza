@@ -127,6 +127,8 @@ namespace Codecool.CaptureTheFlag
         /// <param name="position"></param>
         public void SetPosition(Actor actor, (int x, int y) position)
         {
+            if (ActorMatrix[position.x, position.y] != null)
+                throw new ArgumentException();
             ActorMatrix[position.x, position.y] = actor;
         }
 
