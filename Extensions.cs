@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Intrinsics.X86;
 using Codecool.CaptureTheFlag.Actors;
 
 namespace Codecool.CaptureTheFlag
@@ -51,19 +52,14 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static (int x, int y) ToVector(this Direction dir)
         {
-            switch (dir)
+            return dir switch
             {
-                case Direction.Up:
-                    return (0, -1);
-                case Direction.Down:
-                    return (0, 1);
-                case Direction.Left:
-                    return (-1, 0);
-                case Direction.Right:
-                    return (1, 0);
-            }
-
-            throw new ArgumentOutOfRangeException();
+                Direction.Up => (0, -1),
+                Direction.Down => (0, 1),
+                Direction.Left => (-1, 0),
+                Direction.Right => (1, 0),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         /// <summary>
@@ -74,19 +70,14 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static Direction Inverted(this Direction dir)
         {
-            switch (dir)
+            return dir switch
             {
-                case Direction.Up:
-                    return Direction.Down;
-                case Direction.Down:
-                    return Direction.Up;
-                case Direction.Left:
-                    return Direction.Right;
-                case Direction.Right:
-                    return Direction.Left;
-            }
-
-            throw new ArgumentOutOfRangeException();
+                Direction.Up => Direction.Down,
+                Direction.Down => Direction.Up,
+                Direction.Left => Direction.Right,
+                Direction.Right => Direction.Left,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         /// <summary>
@@ -97,8 +88,12 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static int GetDistance((int x, int y) pos1, (int x, int y) pos2)
         {
-            int result = (pos1.x - pos2.x) + (pos1.y - pos2.y);
-            return result < 0 ? result * -1 : result;
+            int X = pos1.x - pos2.x;
+            int XConverted = X < 0 ? X * -1 : X;
+            int Y = pos1.y - pos2.y;
+            int YConverted = Y < 0 ? Y * -1 : Y;
+            
+            return XConverted + YConverted;
         }
     }
 }

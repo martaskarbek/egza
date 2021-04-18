@@ -21,6 +21,8 @@ namespace Codecool.CaptureTheFlag
         /// <param name="charMatrix"></param>
         public GameMap(string charMatrix)
         {
+            Flags = new List<Flag>();
+            Players = new List<Player>();
             string[] strings = charMatrix.Split(Environment.NewLine);
             string[,] stringMatrix = new string[strings.Length, 1];
             for (int i = 0; i < strings.Length; i++)
@@ -46,7 +48,9 @@ namespace Codecool.CaptureTheFlag
                 {
                     if (charsMatrix[i, j].Equals('.'))
                         ActorMatrix[i,j] = null;
-                    ActorMatrix[i,j] = ActorFactory.CreateFromChar(charsMatrix[i,j], this);
+                    Actor actor = ActorFactory.CreateFromChar(charsMatrix[i,j], this);
+                    ActorMatrix[i, j] = actor;
+                    
                 }
             }
         }
