@@ -33,8 +33,8 @@ namespace Codecool.CaptureTheFlag
             char[,] charsMatrix = new char[strings.Length, stringMatrix[0,0].Length];
             for(int i = 0; i < stringMatrix.Length; i++)
             {
-                char[] chars = stringMatrix[i, 0].ToCharArray();
-                for(int j = 0; j < chars.Length; j++)
+                var chars = stringMatrix[i, 0].ToCharArray();
+                for(var j = 0; j < chars.Length; j++)
                 {
                     charsMatrix[i, j] = chars[j];
                 }
@@ -42,9 +42,9 @@ namespace Codecool.CaptureTheFlag
 
             ActorMatrix = new Actor[charsMatrix.GetLength(0), charsMatrix.GetLength(1)];
             
-            for (int i = 0; i < charsMatrix.GetLength(0); i++)
+            for (var i = 0; i < charsMatrix.GetLength(0); i++)
             {
-                for (int j = 0; j < charsMatrix.GetLength(1); j++)
+                for (var j = 0; j < charsMatrix.GetLength(1); j++)
                 {
                     if (charsMatrix[i, j].Equals('.'))
                         ActorMatrix[i,j] = null;
@@ -52,9 +52,9 @@ namespace Codecool.CaptureTheFlag
                     ActorMatrix[i, j] = actor;
                     /*if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Flag"))
                     {
-                        Flags.Add((Flag)actor);
-                    }
-                    else
+                        /*Flags.Add((Flag)actor);#1#
+                    }*/
+                    /*else
                     {
                         Players.Add((Player)actor);
                     }*/
@@ -78,21 +78,14 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public override string ToString()
         {
-            StringBuilder result = new StringBuilder();
-            StringBuilder singleResult = new StringBuilder();
+            var result = new StringBuilder();
+            var singleResult = new StringBuilder();
             
             for (int i = 0; i < ActorMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < ActorMatrix.GetLength(1); j++)
                 {
-                    if (ActorMatrix[i, j] == null)
-                    {
-                        singleResult.Append('.');
-                    }
-                    else
-                    {
-                        singleResult.Append(Extensions.GetChar(GetActor((i,j))));
-                    }
+                    singleResult.Append(ActorMatrix[i, j] == null ? '.' : Extensions.GetChar(GetActor((i, j))));
                 }
 
                 result.Append(singleResult + Environment.NewLine);
@@ -230,7 +223,7 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public bool WithinBoundaries((int x, int y) position)
         {
-            return position.x < ActorMatrix.GetLength(0) && position.y < ActorMatrix.GetLength(1);
+            return position.x < ActorMatrix.GetLength(0) -1 && position.y < ActorMatrix.GetLength(1) -1;
         }
     }
 }

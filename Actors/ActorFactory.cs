@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Codecool.CaptureTheFlag.Actors
@@ -41,20 +40,14 @@ namespace Codecool.CaptureTheFlag.Actors
         /// <returns></returns>
         public static Actor CreatePlayer(PlayerTeam team, GameMap mapReference)
         {
-            Actor actor = null;
-            string name = Get(_names);
-            switch (team)
+            var name = Get(_names);
+            Actor actor = team switch
             {
-                case PlayerTeam.Paper: 
-                    actor = new Paper(name, mapReference);
-                    break;
-                case PlayerTeam.Rock:
-                    actor = new Rock(name, mapReference);
-                    break;
-                case PlayerTeam.Scissors:
-                    actor = new Scissors(name, mapReference);
-                    break;
-            }
+                PlayerTeam.Paper => new Paper(name, mapReference),
+                PlayerTeam.Rock => new Rock(name, mapReference),
+                PlayerTeam.Scissors => new Scissors(name, mapReference),
+                _ => null
+            };
 
             return actor;
         }
@@ -77,22 +70,14 @@ namespace Codecool.CaptureTheFlag.Actors
         /// <returns></returns>
         public static Actor CreateFromChar(char c, GameMap mapReference)
         {
-            Actor actor = null;
-            switch (c)
+            Actor actor = c switch
             {
-                case 'F':
-                    actor = CreateFlag(mapReference);
-                    break;
-                case 'R':
-                    actor = CreatePlayer(PlayerTeam.Rock, mapReference);
-                    break;
-                case 'P':
-                    actor = CreatePlayer(PlayerTeam.Paper, mapReference);
-                    break;
-                case 'S':
-                    actor = CreatePlayer(PlayerTeam.Scissors, mapReference);
-                    break;
-            }
+                'F' => CreateFlag(mapReference),
+                'R' => CreatePlayer(PlayerTeam.Rock, mapReference),
+                'P' => CreatePlayer(PlayerTeam.Paper, mapReference),
+                'S' => CreatePlayer(PlayerTeam.Scissors, mapReference),
+                _ => null
+            };
 
             return actor;
         }
