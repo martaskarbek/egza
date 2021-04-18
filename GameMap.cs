@@ -123,7 +123,24 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public (int x, int y) GetPosition(Actor actor)
         {
-            throw new NotImplementedException();
+            int X = 0;
+            int Y = 0;
+            if (actor == null)
+                throw new AggregateException();
+            for (var i = 0; i < ActorMatrix.GetLength(0); i++)
+            {
+                for (var j = 0; j < ActorMatrix.GetLength(1); j++)
+                {
+                    if (ActorMatrix[i, j] == actor)
+                    {
+                        Y += i;
+                        X += j;
+                        return (X, Y);
+                    }
+                }
+            }
+
+            throw new AggregateException();
         }
 
         /// <summary>
