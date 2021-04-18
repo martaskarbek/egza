@@ -50,7 +50,14 @@ namespace Codecool.CaptureTheFlag
                         ActorMatrix[i,j] = null;
                     Actor actor = ActorFactory.CreateFromChar(charsMatrix[i,j], this);
                     ActorMatrix[i, j] = actor;
-                    
+                    /*if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Flag"))
+                    {
+                        Flags.Add((Flag)actor);
+                    }
+                    else
+                    {
+                        Players.Add((Player)actor);
+                    }*/
                 }
             }
         }

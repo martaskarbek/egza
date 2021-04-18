@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.Intrinsics.X86;
 using Codecool.CaptureTheFlag.Actors;
 
 namespace Codecool.CaptureTheFlag
@@ -25,23 +24,14 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static char GetChar(this Actor actor)
         {
-            if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Paper"))
+            return actor.GetType().ToString() switch
             {
-                return 'P';
-            }
-            if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Rock"))
-            {
-                return 'R';
-            }
-            if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Scissors"))
-            {
-                return 'S';
-            }
-            if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Flag"))
-            {
-                return 'F';
-            }
-            throw new ArgumentOutOfRangeException();
+                "Codecool.CaptureTheFlag.Actors.Paper" => 'P',
+                "Codecool.CaptureTheFlag.Actors.Rock" => 'R',
+                "Codecool.CaptureTheFlag.Actors.Scissors" => 'S',
+                "Codecool.CaptureTheFlag.Actors.Flag" => 'F',
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         /// <summary>
