@@ -21,7 +21,7 @@ namespace Codecool.CaptureTheFlag
         /// <summary>
         ///     Returns true if the game simulation should still be ongoing
         /// </summary>
-        public bool OngoingGame => true ;
+        public bool OngoingGame => !Map.Flags.All(f => f.Captured);
 
         public Game(GameMap map)
         {
