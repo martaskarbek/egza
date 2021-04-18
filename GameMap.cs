@@ -13,7 +13,7 @@ namespace Codecool.CaptureTheFlag
         /// <summary>
         ///     A 2D matrix of all actor references (null if the field is empty)
         /// </summary>
-        public Actor[,] ActorMatrix { get; set; }
+        public Actor[,] ActorMatrix { get; }
 
         /// <summary>
         ///     Returns a new GameMap instance, constructed from given char matrix
@@ -25,13 +25,13 @@ namespace Codecool.CaptureTheFlag
             Players = new List<Player>();
             string[] strings = charMatrix.Split(Environment.NewLine);
             string[,] stringMatrix = new string[strings.Length, 1];
-            for (int i = 0; i < strings.Length; i++)
+            for (var i = 0; i < strings.Length; i++)
             {
                 stringMatrix[i,0] = strings[i];
             }
           
             char[,] charsMatrix = new char[strings.Length, stringMatrix[0,0].Length];
-            for(int i = 0; i < stringMatrix.Length; i++)
+            for(var i = 0; i < stringMatrix.Length; i++)
             {
                 var chars = stringMatrix[i, 0].ToCharArray();
                 for(var j = 0; j < chars.Length; j++)
@@ -41,23 +41,27 @@ namespace Codecool.CaptureTheFlag
             }
 
             ActorMatrix = new Actor[charsMatrix.GetLength(0), charsMatrix.GetLength(1)];
-            
+            Actor actor = null;
             for (var i = 0; i < charsMatrix.GetLength(0); i++)
             {
                 for (var j = 0; j < charsMatrix.GetLength(1); j++)
                 {
                     if (charsMatrix[i, j].Equals('.'))
                         ActorMatrix[i,j] = null;
-                    Actor actor = ActorFactory.CreateFromChar(charsMatrix[i,j], this);
-                    ActorMatrix[i, j] = actor;
-                    /*if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Flag"))
+                    else
                     {
-                        /*Flags.Add((Flag)actor);#1#
-                    }*/
-                    /*else
+                        actor = ActorFactory.CreateFromChar(charsMatrix[i,j], this);
+                        ActorMatrix[i, j] = actor;
+                    }
+                    
+                    if (actor != null && actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Flag"))
+                    {
+                        Flags.Add((Flag)actor);
+                    }
+                    else
                     {
                         Players.Add((Player)actor);
-                    }*/
+                    }
                 }
             }
         }
@@ -81,11 +85,11 @@ namespace Codecool.CaptureTheFlag
             var result = new StringBuilder();
             var singleResult = new StringBuilder();
             
-            for (int i = 0; i < ActorMatrix.GetLength(0); i++)
+            for (var i = 0; i < ActorMatrix.GetLength(0); i++)
             {
-                for (int j = 0; j < ActorMatrix.GetLength(1); j++)
+                for (var j = 0; j < ActorMatrix.GetLength(1); j++)
                 {
-                    singleResult.Append(ActorMatrix[i, j] == null ? '.' : Extensions.GetChar(GetActor((i, j))));
+                    singleResult.Append(ActorMatrix[i, j] == null ? '.' : GetActor((i, j)).GetChar());
                 }
 
                 result.Append(singleResult + Environment.NewLine);
@@ -104,10 +108,9 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public Actor GetActor((int x, int y) position)
         {
-            //TODO check if correct dimensions
-            if (position.x > ActorMatrix.GetLength(0) - 1)
+            if (position.x > ActorMatrix.GetLength(1) - 1)
                 throw new ArgumentException();
-            if (position.y > ActorMatrix.GetLength(1) - 1)
+            if (position.y > ActorMatrix.GetLength(0) - 1)
                 throw new ArgumentException();
             return ActorMatrix[position.x, position.y];
         }

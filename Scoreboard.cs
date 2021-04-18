@@ -70,25 +70,20 @@ namespace Codecool.CaptureTheFlag
             string isDead = String.Empty;
             foreach (var player in players)
             {
-                if (player.Team == PlayerTeam.Paper)
+                teamName = player.Team switch
                 {
-                    teamName = "Paper";
-                }
-                else if (player.Team == PlayerTeam.Rock)
-                {
-                    teamName = "Rock";
-                }
-                else if (player.Team == PlayerTeam.Scissors)
-                {
-                    teamName = "Scissors";
-                }
+                    PlayerTeam.Paper => "Paper",
+                    PlayerTeam.Rock => "Rock",
+                    PlayerTeam.Scissors => "Scissors",
+                    _ => teamName
+                };
 
                 if (!player.Alive)
                 {
                     isDead = "DEAD";
                 }
                 
-                scoreboard.Append($"Team {teamName} {player.Name} Points: {player.CurrentScore.ToString()} {isDead}");
+                scoreboard.Append($"Team {teamName} {player.Name} Points: {player.CurrentScore.ToString()} {isDead}\n");
             }
 
             return scoreboard.ToString();
