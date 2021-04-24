@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Codecool.CaptureTheFlag.Actors;
@@ -233,7 +234,27 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public (int x, int y) GetNearestFlagPosition(Player player)
         {
-            throw new NotImplementedException();
+            int x = 0;
+            var playerPosition = GetPosition(player);
+            var flagsPositions = new (int x, int y)[Flags.Count];
+            for (int i = 0; i < Flags.Count; i++)
+            {
+                flagsPositions[i] = GetPosition(Flags[i]);
+            }
+
+            var distances = new int[Flags.Count];
+            
+            for (int i = 0; i < Flags.Count; i++)
+            {
+                int distance = Extensions.GetDistance(playerPosition, flagsPositions[i]);
+                distances[i] = distance;
+            }
+
+            int lowerDistance = distances.Min();
+
+            var lower = Flags.FirstOrDefault(f => Extensions.GetDistance(playerPosition, GetPosition(f)) == lowerDistance);
+            
+            return GetPosition(lower);
         }
 
         /// <summary>

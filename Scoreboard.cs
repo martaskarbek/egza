@@ -80,7 +80,7 @@ namespace Codecool.CaptureTheFlag
                     PlayerTeam.Paper => "Paper",
                     PlayerTeam.Rock => "Rock",
                     PlayerTeam.Scissors => "Scissors",
-                    _ => teamName
+                  //  _ => teamName
                 };
 
                 if (!player.Alive)
@@ -88,7 +88,7 @@ namespace Codecool.CaptureTheFlag
                     isDead = "DEAD";
                 }
                 
-                scoreboard.Append($"Team {teamName} {player.Name} Points: {player.CurrentScore.ToString()} {isDead}\n");
+                scoreboard.Append($"Team {teamName} {player.Name} Points: {player.CurrentScore.ToString()} {isDead}{Environment.NewLine}");
             }
 
             return scoreboard.ToString();

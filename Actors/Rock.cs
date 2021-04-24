@@ -27,7 +27,18 @@ namespace Codecool.CaptureTheFlag.Actors
 
         public override int Fight(Player otherPlayer)
         {
-            throw new NotImplementedException();
+            if (otherPlayer is Paper)
+            {
+                Alive = false;
+            }
+
+            if (otherPlayer is Scissors)
+            {
+                otherPlayer.Alive = false;
+            }
+
+            KilledPlayers += 1;
+            return 5;
         }
     }
 }
