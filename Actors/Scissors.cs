@@ -27,18 +27,7 @@ namespace Codecool.CaptureTheFlag.Actors
 
         public override int Fight(Player otherPlayer)
         {
-            if (otherPlayer is Rock)
-            {
-                Alive = false;
-            }
-
-            if (otherPlayer is Paper)
-            {
-                otherPlayer.Alive = false;
-            }
-
-            KilledPlayers += 1;
-            return 5;
+            return otherPlayer is Rock ? 0 : 1;
         }
     }
 }
