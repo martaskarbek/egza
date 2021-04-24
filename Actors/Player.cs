@@ -63,7 +63,7 @@ namespace Codecool.CaptureTheFlag.Actors
         /// <summary>
         ///     Returns this player's current score
         /// </summary>
-        public int CurrentScore => 0;
+        public int CurrentScore => (CapturedFlags * 10) + (KilledPlayers * 5);
 
         /// <summary>
         ///     Returns this player's team

@@ -14,7 +14,7 @@ namespace Codecool.CaptureTheFlag.Actors
         public override PlayerTeam Team => PlayerTeam.Scissors;
 
         public override void OnGameCycle()
-        {
+        { 
             if (!Alive)
                 return;
             
@@ -27,7 +27,18 @@ namespace Codecool.CaptureTheFlag.Actors
 
         public override int Fight(Player otherPlayer)
         {
-            throw new NotImplementedException();
+            if (otherPlayer is Rock)
+            {
+                Alive = false;
+            }
+
+            if (otherPlayer is Paper)
+            {
+                otherPlayer.Alive = false;
+            }
+
+            KilledPlayers += 1;
+            return 5;
         }
     }
 }
