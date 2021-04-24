@@ -18,8 +18,8 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static IEnumerable<Player> GetRankedPlayers(this IEnumerable<Player> players)
         {
-            IEnumerable<Player> result = players.OrderByDescending(p => p.CurrentScore);
-            return result;
+            //IEnumerable<Player> result = players.OrderByDescending(p => p.CurrentScore);
+            return players.OrderByDescending(p => p.CurrentScore);;
         }
 
         /// <summary>
@@ -30,8 +30,8 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static IEnumerable<Player> GetRankedPlayersInTeam(this IEnumerable<Player> players, PlayerTeam team)
         {
-            IEnumerable<Player> result = players.Where(p => p.Team == team).OrderByDescending(p => p.CurrentScore);
-            return result;
+            //IEnumerable<Player> result = players.Where(p => p.Team == team).OrderByDescending(p => p.CurrentScore);
+            return players.Where(p => p.Team == team).OrderByDescending(p => p.CurrentScore);;
         }
 
         /// <summary>
@@ -41,7 +41,12 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static PlayerTeam GetWinningTeam(this IEnumerable<Player> players)
         {
-            throw new NotImplementedException();
+            var teams = players.GroupBy(team => team.Team)
+                .Select(x => new { Team = x.Key, TotalPoint = x.Sum(x => x.CurrentScore) })
+                .OrderByDescending(x => x.TotalPoint)
+                .FirstOrDefault();
+
+            return teams.Team;
         }
 
         /// <summary>
