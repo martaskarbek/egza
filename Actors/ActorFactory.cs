@@ -46,7 +46,7 @@ namespace Codecool.CaptureTheFlag.Actors
                 PlayerTeam.Paper => new Paper(name, mapReference),
                 PlayerTeam.Rock => new Rock(name, mapReference),
                 PlayerTeam.Scissors => new Scissors(name, mapReference),
-                _ => null
+               // _ => null
             };
 
             return actor;
@@ -76,7 +76,7 @@ namespace Codecool.CaptureTheFlag.Actors
                 'R' => CreatePlayer(PlayerTeam.Rock, mapReference),
                 'P' => CreatePlayer(PlayerTeam.Paper, mapReference),
                 'S' => CreatePlayer(PlayerTeam.Scissors, mapReference),
-                _ => null
+               // _ => null
             };
 
             return actor;

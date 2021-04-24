@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using Codecool.CaptureTheFlag.Actors;
 
 namespace Codecool.CaptureTheFlag
@@ -23,7 +24,7 @@ namespace Codecool.CaptureTheFlag
         {
             Flags = new List<Flag>();
             Players = new List<Player>();
-            string[] strings = charMatrix.Split(Environment.NewLine);
+            var strings = Regex.Split(charMatrix, "\r\n|\r|\n");
             string[,] stringMatrix = new string[strings.Length, 1];
             for (var i = 0; i < strings.Length; i++)
             {
@@ -51,16 +52,15 @@ namespace Codecool.CaptureTheFlag
                     else
                     {
                         actor = ActorFactory.CreateFromChar(charsMatrix[i,j], this);
-                        ActorMatrix[i, j] = actor;
-                    }
-                    
-                    if (actor != null && actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Flag"))
-                    {
-                        Flags.Add((Flag)actor);
-                    }
-                    else
-                    {
-                        Players.Add((Player)actor);
+                        SetPosition(actor, (i,j));
+                        if (actor.GetType().ToString().Equals("Codecool.CaptureTheFlag.Actors.Flag"))
+                        {
+                            Flags.Add((Flag)actor);
+                        }
+                        else
+                        {
+                            Players.Add((Player)actor);
+                        }
                     }
                 }
             }
@@ -140,7 +140,7 @@ namespace Codecool.CaptureTheFlag
                 }
             }
 
-            throw new AggregateException();
+            throw new ArgumentException();
         }
 
         /// <summary>
