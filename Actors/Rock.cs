@@ -27,6 +27,10 @@ namespace Codecool.CaptureTheFlag.Actors
 
         public override int Fight(Player otherPlayer)
         {
+            if (otherPlayer is Rock)
+            {
+                return -1;
+            }
             return otherPlayer is Paper ? 0 : 1;
         }
     }

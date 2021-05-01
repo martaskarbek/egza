@@ -25,6 +25,15 @@ namespace Codecool.CaptureTheFlag
         {
             Flags = new List<Flag>();
             Players = new List<Player>();
+            char[,] charsMatrix = CharsMatrix(charMatrix);
+            
+            
+            ActorMatrix = new Actor[charsMatrix.GetLength(0), charsMatrix.GetLength(1)];
+            FillMatrix(charsMatrix);
+        }
+
+        private char[,] CharsMatrix(string charMatrix)
+        {
             var strings = Regex.Split(charMatrix, "\r\n|\r|\n");
             string[,] stringMatrix = new string[strings.Length, 1];
             for (var i = 0; i < strings.Length; i++)
@@ -42,7 +51,11 @@ namespace Codecool.CaptureTheFlag
                 }
             }
 
-            ActorMatrix = new Actor[charsMatrix.GetLength(0), charsMatrix.GetLength(1)];
+            return charsMatrix;
+        }
+
+        private void FillMatrix(char[,] charsMatrix)
+        {
             Actor actor = null;
             for (var i = 0; i < charsMatrix.GetLength(0); i++)
             {
@@ -90,10 +103,12 @@ namespace Codecool.CaptureTheFlag
             {
                 for (var j = 0; j < ActorMatrix.GetLength(1); j++)
                 {
-                    singleResult.Append(ActorMatrix[i, j] == null ? '.' : GetActor((i, j)).GetChar());
+                    singleResult.Append(GetActor((i, j)).GetChar());
                 }
 
-                result.Append(singleResult + Environment.NewLine);
+                result.Append($"{singleResult}");
+                result.Append(Environment.NewLine);
+                //result.Append(singleResult + Environment.NewLine);
                 singleResult.Clear();
             }
 
@@ -113,7 +128,7 @@ namespace Codecool.CaptureTheFlag
                 throw new ArgumentException();
             if (position.y > ActorMatrix.GetLength(0) - 1)
                 throw new ArgumentException();
-            return ActorMatrix[position.x, position.y];
+            return ActorMatrix[position.y, position.x];
         }
 
         /// <summary>

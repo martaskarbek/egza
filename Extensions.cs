@@ -24,6 +24,10 @@ namespace Codecool.CaptureTheFlag
         /// <returns></returns>
         public static char GetChar(this Actor actor)
         {
+            if (actor == null)
+            {
+                return '.';
+            }
             return actor.GetType().ToString() switch
             {
                 "Codecool.CaptureTheFlag.Actors.Paper" => 'P',
@@ -31,6 +35,7 @@ namespace Codecool.CaptureTheFlag
                 "Codecool.CaptureTheFlag.Actors.Scissors" => 'S',
                 "Codecool.CaptureTheFlag.Actors.Flag" => 'F',
                 _ => throw new ArgumentOutOfRangeException()
+                
             };
         }
 

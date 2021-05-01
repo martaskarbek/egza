@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.Design;
 
 namespace Codecool.CaptureTheFlag.Actors
 {
@@ -15,14 +16,29 @@ namespace Codecool.CaptureTheFlag.Actors
 
         public override void OnGameCycle()
         {
-		if (!Alive)
-                return;
+		    if (!Alive)
+                    return;
 
-        var myPosition = MapReference.GetPosition(this);
-        var nearestFlagPosition = MapReference.GetNearestFlagPosition(this);
-        var targetDirection = GetMoveDirection(myPosition, nearestFlagPosition);
+            var myPosition = MapReference.GetPosition(this);
+            var nearestFlagPosition = MapReference.GetNearestFlagPosition(this);
+            var targetDirection = GetMoveDirection(myPosition, nearestFlagPosition);
+            
+            var (x, y) = targetDirection.ToVector();
+           // (int x, int y) targetPosition = (myPosition.x + 1, myPosition.y + 1);
 
-        MapReference.TryMovePlayer(this, myPosition, targetDirection);
+           if (MapReference.GetActor(targetDirection.ToVector()) is Flag ||
+               MapReference.GetActor(targetDirection.ToVector()) is null)
+           {
+               targetDirection = GetMoveDirection(myPosition, nearestFlagPosition);
+           }
+            
+            if (MapReference.GetActor(targetDirection.ToVector()) is Rock ||
+                MapReference.GetActor(targetDirection.ToVector()) is Scissors)
+            {
+                targetDirection = targetDirection.Inverted();
+            }
+
+            MapReference.TryMovePlayer(this, myPosition, targetDirection);
         }
 
         public override int Fight(Player otherPlayer)

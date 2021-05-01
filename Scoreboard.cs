@@ -71,24 +71,20 @@ namespace Codecool.CaptureTheFlag
             // Team Scissors Abel Points: 5 DEAD
 
             StringBuilder scoreboard = new StringBuilder();
-            string teamName = null;
             string isDead = String.Empty;
             foreach (var player in players)
             {
-                teamName = player.Team switch
+                var teamName = player.Team switch
                 {
                     PlayerTeam.Paper => "Paper",
                     PlayerTeam.Rock => "Rock",
                     PlayerTeam.Scissors => "Scissors",
-                  //  _ => teamName
+                    //  _ => teamName
                 };
 
-                if (!player.Alive)
-                {
-                    isDead = "DEAD";
-                }
-                
-                scoreboard.Append($"Team {teamName} {player.Name} Points: {player.CurrentScore.ToString()} {isDead}{Environment.NewLine}");
+                scoreboard.Append(!player.Alive
+                    ? $"Team {teamName} {player.Name} Points: {player.CurrentScore.ToString()} DEAD\n"
+                    : $"Team {teamName} {player.Name} Points: {player.CurrentScore.ToString()}\n");
             }
 
             return scoreboard.ToString();
